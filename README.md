@@ -64,7 +64,13 @@ After install:
 `vocabulary.txt` — names and terms Whisper should spell correctly (one per
 line). Sent as the initial prompt with every dictation; edits apply at once.
 
-All user-tunable settings are at the top of `dictate.lua`:
-- `DOUBLE_TAP_MS` — max ms between taps
+`local.lua` can also set `double_tap_ms`, the max ms between the two taps
+(default 300), for a slower double tap:
+
+```lua
+return { double_tap_ms = 450 }
+```
+
+The other settings are at the top of `dictate.lua`:
 - `AUDIO_FILE` — where the temp wav is written
 - `SOX_BIN` — path to sox

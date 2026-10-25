@@ -18,13 +18,15 @@ local PROJECT_DIR      = projectDir()
 local AUDIO_FILE       = "/tmp/whisper-dictation.wav"
 local TRANSCRIBE_SCRIPT = PROJECT_DIR .. "/transcribe.sh"
 local SOX_BIN          = "/opt/homebrew/bin/sox"
-local DOUBLE_TAP_MS    = 300
 
 local localConfig = {}
 do
   local ok, cfg = pcall(dofile, PROJECT_DIR .. "/local.lua")
   if ok and type(cfg) == "table" then localConfig = cfg end
 end
+
+-- Max ms between the two taps; local.lua can raise it: return { double_tap_ms = 450 }
+local DOUBLE_TAP_MS = tonumber(localConfig.double_tap_ms) or 300
 
 -- Trigger keys by raw keycode (flagsChanged gives a single flag for both
 -- sides of a modifier, so each physical key is tracked on its own).
